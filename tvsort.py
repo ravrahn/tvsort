@@ -130,7 +130,7 @@ for torrent in torrents["arguments"]["torrents"]:
         sh.removetorrent(torrent["id"])
     elif torrent["leftUntilDone"] != 0:
         print "Found incomplete torrent %s with ratio %.2f, ignoring" % (torrent["name"], torrent["uploadRatio"])
-    elif diff < 0.5:
+    elif diff < 0.5 and specific_torrent != "":
         print "Found non-matching torrent %s, ignoring" % torrent["name"]
     elif torrent["uploadRatio"] < 2.0:
         print "Found completed torrent %s with ratio %.2f, ignoring" % (torrent["name"], torrent["uploadRatio"])
