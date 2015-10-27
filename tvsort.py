@@ -27,32 +27,36 @@ for torrent in torrents['arguments']['torrents']:
     name = original_path(torrent['id'])
     info = torrent_info(name)
 
-    diff = difflib.SequenceMatcher(None, specific_torrent, info['series']).ratio();
+    if 'error' not in info:
 
-    if specific_torrent == '':
-        diff = 0.0
+        diff = difflib.SequenceMatcher(None, specific_torrent, info['series']).ratio();
 
-    if torrent['leftUntilDone'] == 0 and (torrent['uploadRatio'] >= 2.0 or diff > 0.5):
+        if specific_torrent == '':
+            diff = 0.0
 
-        if diff > 0.5:
-            print('Found matching completed torrent {name} with ratio {ratio:.2f}'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
-        else:
-            print('Found completed torrent {name} with ratio {ratio:.2f}'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
-        og_name = '{dir}/{name}'.format(dir=TORRENT_DIR, name=name)
-        new_name = sorted_path(info, FOLDER_LIST, SORTED_DIR)
+        if torrent['leftUntilDone'] == 0 and (torrent['uploadRatio'] >= 2.0 or diff > 0.5):
 
-        print('Moving to {name}'.format(name=new_name))
-        os.rename(og_name, new_name)
+            if diff > 0.5:
+                print('Found matching completed torrent {name} with ratio {ratio:.2f}'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
+            else:
+                print('Found completed torrent {name} with ratio {ratio:.2f}'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
+            og_name = '{dir}/{name}'.format(dir=TORRENT_DIR, name=name)
+            new_name = sorted_path(info, FOLDER_LIST, SORTED_DIR)
 
-        print('Removing torrent')
-        sh.removetorrent(torrent['id'])
-    elif torrent['leftUntilDone'] != 0:
-        print('Found incomplete torrent {name} with ratio {ratio:.2f}, ignoring'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
-    elif diff < 0.5 and specific_torrent != '':
-        print('Found non-matching torrent {name}, ignoring'.format(name=torrent['name']))
-    elif torrent['uploadRatio'] < 2.0:
-        print('Found completed torrent {name} with ratio {ratio:.2f}, ignoring'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
-    print()
+            print('Moving to {name}'.format(name=new_name))
+            os.rename(og_name, new_name)
+
+            print('Removing torrent')
+            sh.removetorrent(torrent['id'])
+        elif torrent['leftUntilDone'] != 0:
+            print('Found incomplete torrent {name} with ratio {ratio:.2f}, ignoring'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
+        elif diff < 0.5 and specific_torrent != '':
+            print('Found non-matching torrent {name}, ignoring'.format(name=torrent['name']))
+        elif torrent['uploadRatio'] < 2.0:
+            print('Found completed torrent {name} with ratio {ratio:.2f}, ignoring'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
+        print()
+    else:
+        print('Found torrent {name} with ratio {ratio:.2f} - Couldn\'t identify'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
 
 if torrent_count == 0:
     print('Found no torrents')
