@@ -71,16 +71,16 @@ def torrent_info(torrent_name):
 def episode_name(series, season, episode_number):
     episode_url = api_url(series, season, episode_number)
     episode = json.loads(requests.get(episode_url).text)
-    episode_name = episode['name']
+    name = episode['name']
 
-    return episode_name
+    return name
 
 def sorted_path(torrent_info, folder_list, sorted_dir):
     ''' Given info about a torrent, return a path
         for it in line with the sorting system '''
 
     if 'error' not in torrent_info:
-        episode_name = episode_name(torrent_info['series'], torrent_info['season'], torrent_info['episode'])
+        episode = episode_name(torrent_info['series'], torrent_info['season'], torrent_info['episode'])
 
         folders = difflib.get_close_matches(torrent_info['series'], folder_list)
 
@@ -96,7 +96,7 @@ def sorted_path(torrent_info, folder_list, sorted_dir):
             'dir': folder,
             'season': int(season_number),
             'episode': int(episode_number),
-            'name': episode_name,
+            'name': episode,
             'filetype': filetype
         }
 
