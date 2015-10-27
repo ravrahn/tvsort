@@ -8,7 +8,7 @@ sys.stdout = logger('/usr/local/log/tvsort.log')
 
 TORRENT_DIR = '/mnt/storage/Torrents'
 SORTED_DIR = '/mnt/storage/TV'
-FOLDER_LIST = os.listdir(FILE_DIR)
+FOLDER_LIST = os.listdir(SORTED_DIR)
 
 print(time.strftime('%a %Y/%m/%d %H:%M:%S'))
 
