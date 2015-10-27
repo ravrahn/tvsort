@@ -94,8 +94,8 @@ def sorted_path(torrent_info, folder_list, sorted_dir):
 
         format_args = {
             'dir': folder,
-            'season': int(season_number),
-            'episode': int(episode_number),
+            'season': int(torrent_info['season']),
+            'episode': int(torrent_info['episode']),
             'name': episode,
             'filetype': filetype
         }
