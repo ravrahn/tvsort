@@ -38,7 +38,7 @@ for torrent in torrents['arguments']['torrents']:
             print('Found matching completed torrent {name} with ratio {ratio:.2f}'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
         else:
             print('Found completed torrent {name} with ratio {ratio:.2f}'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
-        og_name = '{dir}/{name}'.format(dir=TORRENT_DIR, dir=name)
+        og_name = '{dir}/{name}'.format(dir=TORRENT_DIR, name=name)
         new_name = sorted_path(info, FOLDER_LIST, SORTED_DIR)
 
         print('Moving to {name}'.format(new_name))
