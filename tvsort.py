@@ -56,7 +56,8 @@ for torrent in torrents['arguments']['torrents']:
             print('Found completed torrent {name} with ratio {ratio:.2f}, ignoring'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
         print()
     else:
-        print('Found torrent {name} with ratio {ratio:.2f} - Couldn\'t identify'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
+        print('Found torrent {name} with ratio {ratio:.2f} - Couldn\'t identify, ignoring'.format(name=torrent['name'], ratio=torrent['uploadRatio']))
+        print()
 
 if torrent_count == 0:
     print('Found no torrents')
