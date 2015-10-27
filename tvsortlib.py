@@ -18,7 +18,7 @@ class logger(object):
         self.stdout.write(data)
         self.log.write(data)
 
-    def flush():
+    def flush(self):
         self.stdout.flush()
         self.log.flush()
 
