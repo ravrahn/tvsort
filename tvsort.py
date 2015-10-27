@@ -41,7 +41,7 @@ for torrent in torrents['arguments']['torrents']:
         og_name = '{dir}/{name}'.format(dir=TORRENT_DIR, name=name)
         new_name = sorted_path(info, FOLDER_LIST, SORTED_DIR)
 
-        print('Moving to {name}'.format(new_name))
+        print('Moving to {name}'.format(name=new_name))
         os.rename(og_name, new_name)
 
         print('Removing torrent')
