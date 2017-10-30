@@ -57,6 +57,7 @@ def torrent_info(torrent_name):
     if name_match:
         series_name, season_number, episode_number, filetype = name_match.groups()
         series_name = re.sub(r'[\._]', r' ', series_name)
+        series_name = re.sub(r'\[.*\]', r'', series_name)
         series_name = re.sub(r'[0-9]', r'', series_name)
         results = {
             'series': series_name,
